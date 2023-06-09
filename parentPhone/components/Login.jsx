@@ -13,17 +13,17 @@ import { signInWithEmailAndPassword } from "../config/firebase.js";
 import Constants from "expo-constants";
 
 
-const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
+const Login = ({navigation}) => {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    
   const handleLogin = async () => {
-
     await signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         Alert.alert("Login Successful!");
+        navigation.navigate('Tabs');
 
         // ...
       })
@@ -31,7 +31,6 @@ const Login = () => {
         const errorCode = error.code;
         const errorMessage = error.message;
         Alert.alert(errorMessage);
-
       });
   };
 
@@ -68,6 +67,7 @@ export default Login;
 
 const styles = StyleSheet.create({
   root: {
+    backgroundColor:"white",
     display: "flex",
     width: "100%",
     height: "100%",
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginLeft: "25%",
     width: "50%",
+    marginBottom: 20
   },
   btn: {
     // borderWidth: .5,

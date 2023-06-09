@@ -1,23 +1,42 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import Constants from 'expo-constants';
-import Login from './components/Login';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import Constants from "expo-constants";
+import Login from "./components/Login";
+import Tabs from "./navigation/Tabs";
+import { auth } from "./config/firebase";
+import { useEffect, useState } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import Accounts from "./screens/Accounts";
+import ContextProvider from "./context/ContextProvider";
+import { useContext } from "react";
+import { appContext } from "./context/ContextProvider";
+
+const { Navigator, Screen } = createNativeStackNavigator();
 
 export default function App() {
+  user = auth.currentUser;
   return (
-    <View style={styles.container}>
-      {/* <Text>Open up App.js to start working on your app! {Constants.manifest.extra.apiKey}</Text> */}
-      <Login />
-      <StatusBar style="auto" />
-    </View>
+    <ContextProvider>
+      <NavigationContainer>
+        <Navigator
+          screenOptions={{ headerShown: false }}
+          initialRouteName="Login"
+        >
+          <Screen name="Login" component={Login} />
+          <Screen name="Tabs" component={Tabs} />
+          {/* {user ? <Tabs/>: <Login/>} */}
+        </Navigator>
+      </NavigationContainer>
+    </ContextProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
