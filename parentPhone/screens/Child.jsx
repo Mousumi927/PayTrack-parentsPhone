@@ -1,7 +1,8 @@
 import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import React from "react";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
-const Child = () => {
+const Child = ({navigation}) => {
   // const image = require("../images/istockphoto-1367828137-612x612.jpg");
   const image = "hello";
   return (
@@ -10,16 +11,19 @@ const Child = () => {
         source={require("../images/istockphoto-1367828137-612x612.jpg")}
         style={styles.img}
       />
+      <Icon name="bell" size={30} color="blue" style={styles.icon} />
+      <Icon name="plus" size={30} color="blue" style={styles.icon1} onPress={()=> navigation.navigate('AddChild')}/>
       <View style={styles.childView}>
         <FlatList
           horizontal={true}
           data={image}
-          renderItem={({ item, index }) => (<>
-            <Image source={item} style={styles.listImg} />
-            <Text>{item}</Text></>
+          renderItem={({ item, index }) => (
+            <>
+              <Image source={item} style={styles.listImg} />
+              <Text>{item}</Text>
+            </>
           )}
-          keyExtractor={item => item}
-
+          keyExtractor={(item) => item}
         />
       </View>
       <View style={styles.transactionsView}></View>
@@ -71,5 +75,15 @@ const styles = StyleSheet.create({
   listImg: {
     width: 100,
     height: 100,
+  },
+  icon: {
+    marginLeft: "89%",
+    marginTop: 30,
+    position: "absolute",
+  },
+  icon1: {
+    marginLeft: "89%",
+    marginTop: 70,
+    position: "absolute",
   },
 });
