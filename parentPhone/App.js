@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from "react-native";
 import Constants from "expo-constants";
 import Login from "./components/Login";
 import Tabs from "./navigation/Tabs";
+import AddChild from "./screens/AddChild";
 import { auth } from "./config/firebase";
 import { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
@@ -25,8 +26,11 @@ export default function App() {
         >
           <Screen name="Login" component={Login} />
           <Screen name="Tabs" component={Tabs} />
+          <Screen name="AddChild" component={AddChild} />
+
           {/* {user ? <Tabs/>: <Login/>} */}
         </Navigator>
+        
       </NavigationContainer>
     </ContextProvider>
   );
