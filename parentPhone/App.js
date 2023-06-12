@@ -12,6 +12,7 @@ import Accounts from "./screens/Accounts";
 import ContextProvider from "./context/ContextProvider";
 import { useContext } from "react";
 import { appContext } from "./context/ContextProvider";
+import Notifications from "./screens/Notifications";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ export default function App() {
           <Screen name="Login" component={Login} />
           <Screen name="Tabs" component={Tabs} />
           <Screen name="AddChild" component={AddChild} />
+          <Screen name="Notifications" component={Notifications} />
 
           {/* {user ? <Tabs/>: <Login/>} */}
         </Navigator>

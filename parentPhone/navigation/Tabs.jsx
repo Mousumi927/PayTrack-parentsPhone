@@ -20,12 +20,12 @@ const Tabs = () => {
 
   return (
 
-    <Tab.Navigator screenOptions={{headerShown:false, tabBarActiveTintColor:"#4a7ae8"}}  >
+    <Tab.Navigator screenOptions={{headerShown:false, tabBarActiveTintColor:"#194280"}}  >
     <Tab.Screen name="Home" component={Home} options={{tabBarIcon: ({color})=> (<Icon name="home" size={25} color={color} />)}} />
 
     <Tab.Screen name="Accounts" component={Accounts} options={{tabBarIcon: ({color})=> (<Icon name="credit-card" size={25} color={color} />)}} />
     <Tab.Screen name="Child" component={Child} options={{tabBarIcon: ({color})=> (<Icon name="child" size={25} color={color} />)}} />
-    <Tab.Screen name="More" component={More} options={{tabBarIcon: ({color})=> (<Icon name="bars" size={25} color={color} />)}} />
+    <Tab.Screen name="More" component={More} options={{tabBarIcon: ({color})=> (<Icon name="bars" size={25} color={color} />), tabBarBadge:3}} />
   </Tab.Navigator>
   )
 }

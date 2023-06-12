@@ -4,15 +4,15 @@ import Icon from "react-native-vector-icons/FontAwesome5";
 
 const Child = ({navigation}) => {
   // const image = require("../images/istockphoto-1367828137-612x612.jpg");
-  const image = "hello";
+  const image = ["hello"];
   return (
     <View style={styles.root}>
       <Image
         source={require("../images/istockphoto-1367828137-612x612.jpg")}
         style={styles.img}
       />
-      <Icon name="bell" size={30} color="blue" style={styles.icon} />
-      <Icon name="plus" size={30} color="blue" style={styles.icon1} onPress={()=> navigation.navigate('AddChild')}/>
+      <Icon name="bell" size={30} color="#194280" style={styles.icon} onPress={()=> navigation.navigate('Notifications')} />
+      <Icon name="plus" size={30} color="#194280" style={styles.icon1} onPress={()=> navigation.navigate('AddChild')}/>
       <View style={styles.childView}>
         <FlatList
           horizontal={true}
@@ -23,7 +23,7 @@ const Child = ({navigation}) => {
               <Text>{item}</Text>
             </>
           )}
-          keyExtractor={(item) => item}
+          keyExtractor={(item) => item.item}
         />
       </View>
       <View style={styles.transactionsView}></View>
