@@ -88,11 +88,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   img: {
-    marginTop: 80,
+    marginTop: 100,
     marginLeft: "25%",
     width: "50%",
     marginBottom: 20,
-    borderRadius:"50%/2"
+    borderRadius: 50,
+    resizeMode:"contain"
   },
   btn: {
     // borderWidth: .5,
