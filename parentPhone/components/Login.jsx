@@ -88,16 +88,17 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   img: {
-    marginTop: 20,
+    marginTop: 80,
     marginLeft: "25%",
     width: "50%",
-    marginBottom: 20
+    marginBottom: 20,
+    borderRadius:"50%/2"
   },
   btn: {
     // borderWidth: .5,
     borderRadius: 30,
-    width: "70%",
-    marginLeft: "15%",
+    width: "60%",
+    marginLeft: "20%",
     marginTop: 20,
     height: 55,
     backgroundColor: "#0066FF",
