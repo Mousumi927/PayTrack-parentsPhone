@@ -20,7 +20,7 @@ const Tabs = () => {
 
   return (
 
-    <Tab.Navigator screenOptions={{headerShown:false, tabBarActiveTintColor:"#194280"}}  >
+    <Tab.Navigator screenOptions={{headerShown:false, tabBarActiveTintColor:"#0066FF"}}  >
     <Tab.Screen name="Home" component={Home} options={{tabBarIcon: ({color})=> (<Icon name="home" size={25} color={color} />)}} />
 
     <Tab.Screen name="Accounts" component={Accounts} options={{tabBarIcon: ({color})=> (<Icon name="credit-card" size={25} color={color} />)}} />
@@ -34,5 +34,4 @@ export default Tabs
 
 const styles = StyleSheet.create({
 
- 
 })

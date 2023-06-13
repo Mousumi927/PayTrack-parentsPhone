@@ -11,8 +11,8 @@ const Child = ({navigation}) => {
         source={require("../images/istockphoto-1367828137-612x612.jpg")}
         style={styles.img}
       />
-      <Icon name="bell" size={30} color="#194280" style={styles.icon} onPress={()=> navigation.navigate('Notifications')} />
-      <Icon name="plus" size={30} color="#194280" style={styles.icon1} onPress={()=> navigation.navigate('AddChild')}/>
+      <Icon name="bell" size={30} color="#0066FF" style={styles.icon} onPress={()=> navigation.navigate('Notifications')} />
+      <Icon name="plus" size={30} color="#0066FF" style={styles.icon1} onPress={()=> navigation.navigate('AddChild')}/>
       <View style={styles.childView}>
         <FlatList
           horizontal={true}
@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    borderColor:"#0066FF"
   },
 
   transactionsView: {
@@ -71,6 +72,8 @@ const styles = StyleSheet.create({
     shadowColor: "#171717",
     shadowOpacity: 0.2,
     shadowRadius: 3,
+    borderColor:"#0066FF"
+
   },
   listImg: {
     width: 100,

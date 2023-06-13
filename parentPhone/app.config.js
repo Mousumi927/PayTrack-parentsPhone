@@ -9,9 +9,10 @@ export default{
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./images/circle-scatter-haikei.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#ffffff",
+      "marginTop": "0"
     },
     "assetBundlePatterns": [
       "**/*"

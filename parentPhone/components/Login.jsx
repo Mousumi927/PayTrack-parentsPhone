@@ -5,7 +5,7 @@ import {
   Image,
   TextInput,
   Alert,
-  TouchableOpacity,
+  TouchableOpacity, ImageBackground
 } from "react-native";
 import React, { useState } from "react";
 import { auth } from "../config/firebase.js";
@@ -35,7 +35,7 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <View style={styles.root}>
+    <View style={styles.root}><ImageBackground source={require("../images/wave-haikei.png")}>
       <Image source={require("../images/logo.png")} style={styles.img} />
       <Text style={styles.text}>EMAIL</Text>
       <TextInput style={styles.input} onChangeText={setEmail} />
@@ -58,7 +58,7 @@ const Login = ({navigation}) => {
         >
           Log In
         </Text>
-      </TouchableOpacity>
+      </TouchableOpacity></ImageBackground>
     </View>
   );
 };
@@ -100,6 +100,8 @@ const styles = StyleSheet.create({
     marginLeft: "15%",
     marginTop: 20,
     height: 55,
-    backgroundColor: "#d1d1d1",
+    backgroundColor: "#0066FF",
   },
 });
+
+
