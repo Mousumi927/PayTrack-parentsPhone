@@ -8,12 +8,14 @@ import {
   Button,
   TouchableOpacity, ImageBackground, Alert
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import moment from 'moment';
 import { addChild } from "../config/firebase";
+import { auth } from "../config/firebase";
+
 
 const AddChild = ({navigation}) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -24,6 +26,7 @@ const AddChild = ({navigation}) => {
   const [date, setDate] = useState("");
   const [email, setEmail] = useState("");
   const [pwd, setPwd] = useState("");
+  const user = auth.currentUser;
 
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
@@ -35,6 +38,7 @@ const AddChild = ({navigation}) => {
     });
 
     console.log(result);
+   
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
@@ -56,10 +60,10 @@ const AddChild = ({navigation}) => {
 
   const handleSubmit = async () => {
 
-    await addChild(name, address, gender, date, email, pwd, image)
+    await addChild(name, address, gender, date, email, pwd, image, user.uid)
     .then((res)=>{
       console.log("This is "+res);
-      // Alert.alert("Successful!!!")
+       Alert.alert("Successful!!!")
      }).then(()=>{
       navigation.navigate("Child")
      })

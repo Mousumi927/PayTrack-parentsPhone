@@ -7,10 +7,6 @@ import Child from '../screens/Child';
 import More from '../screens/More';
 import { auth } from "../config/firebase.js";
 import Icon from "react-native-vector-icons/FontAwesome5";
-// react-native-vector-icons/Ionicons otherwise.
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import { NavigationContainer } from '@react-navigation/native';
-
 
 
 const Tab = createBottomTabNavigator();

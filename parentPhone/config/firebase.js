@@ -31,10 +31,13 @@ const firebaseConfig = {
   appId: Constants.manifest.extra.appId,
 };
 
-// Initialize Firebase
+// Initialize Firebase  //! app = Parent,  app1 = Child
 const app = initializeApp(firebaseConfig);
+const app1 = initializeApp(firebaseConfig, 'Secondary' );
 const auth = getAuth(app);
+const auth1 = getAuth(app1);
 const storage = getStorage(app);
+const storage1 = getStorage(app1);
 
 export const addChild = async (
   name,
@@ -43,14 +46,16 @@ export const addChild = async (
   date,
   email,
   pwd,
-  image
+  image, uid
 ) => {
-  //Adding a Child
-  const response = await createUserWithEmailAndPassword(auth, email, pwd);
+
+  //!!! Adding a Child
+
+  const response = await createUserWithEmailAndPassword(auth1, email, pwd);
   const user = response.user;
   await updateProfile(user, { displayName: name });
 
-  //Adding data to fireStore
+  //!!   Adding data to fireStore
   // await addDoc(collection(db, "users"), {
   //     uid: user.uid,
   //     authProvider: "local",
@@ -62,7 +67,7 @@ export const addChild = async (
   //     pwd: pwd,
   //   });
 
-  //Image upload
+  //!!! Image upload
 
   const blobImage = await new Promise((resolve, reject) => {
     const xhr = new XMLHttpRequest();
@@ -80,7 +85,7 @@ export const addChild = async (
   const metadata = {
     contentType: "image/jpeg",
   };
-  const storageRef = ref(storage, "images/" + Date.now());
+  const storageRef = ref(storage1, `images/${uid}/${auth1.currentUser.uid}`);
   const uploadTask = uploadBytesResumable(storageRef, blobImage, metadata);
 
   // Listen for state changes, errors, and completion of the upload.
@@ -125,9 +130,9 @@ export const addChild = async (
     }
   );
 
-  return "Success!";
+ return "Success!";
 };
 
-export { signInWithEmailAndPassword, auth };
+export { signInWithEmailAndPassword, auth, storage };
 
 // console.log(Constants.manifest.extra.apiKey);

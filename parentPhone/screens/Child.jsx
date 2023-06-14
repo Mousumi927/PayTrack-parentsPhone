@@ -1,12 +1,29 @@
-import { StyleSheet, Text, View, Image, FlatList } from "react-native";
-import React from "react";
+import { StyleSheet, Text, ScrollView, Image, FlatList, View } from "react-native";
+import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import { storage, auth } from "../config/firebase";
+import {getDownloadURL, listAll, ref, uploadBytesResumable} from "firebase/storage";
 
 const Child = ({navigation}) => {
   // const image = require("../images/istockphoto-1367828137-612x612.jpg");
   const image = ["hello"];
+  const [imageList, setImageList] = useState("");
+
+  useEffect(()=>{
+
+    const imageListRef = ref(storage, `images/${auth.currentUser.uid}`);
+    listAll(imageListRef).then((res) => {
+      res.items.forEach((item) => {
+        getDownloadURL(item).then((url) => {
+          setImageList(oldList=>[...oldList, url]);
+          
+        });
+      });
+    });
+  },[])
+
   return (
-    <View style={styles.root}>
+    <ScrollView style={styles.root}>
       <Image
         source={require("../images/istockphoto-1367828137-612x612.jpg")}
         style={styles.img}
@@ -15,19 +32,19 @@ const Child = ({navigation}) => {
       <Icon name="plus" size={30} color="#0066FF" style={styles.icon1} onPress={()=> navigation.navigate('AddChild')}/>
       <View style={styles.childView}>
         <FlatList
-          horizontal={true}
-          data={image}
+          horizontal={false}
+          data={imageList}
           renderItem={({ item, index }) => (
-            <>
-              <Image source={item} style={styles.listImg} />
-              <Text>{item}</Text>
-            </>
+            <View style={styles.list}>
+              <Image source={{uri:item}} style={styles.listImg} />
+              {/* <Text>{item}</Text> */}
+            </View>
           )}
           keyExtractor={(item) => item.item}
         />
       </View>
       <View style={styles.transactionsView}></View>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -70,6 +87,8 @@ const styles = StyleSheet.create({
   listImg: {
     width: 100,
     height: 100,
+    borderRadius: 50,
+    margin:5
   },
   icon: {
     marginLeft: "89%",
@@ -81,4 +100,8 @@ const styles = StyleSheet.create({
     marginTop: 70,
     position: "absolute",
   },
+  list:{
+    borderBottomWidth:.3,
+    borderColor:"#0066FF"
+  }
 });
