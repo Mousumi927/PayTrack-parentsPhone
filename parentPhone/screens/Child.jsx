@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
 
   childView: {
     borderWidth: 1,
-    height: "25%",
+    height: 220,
     borderRadius: "15%",
     width: "95%",
     marginLeft: "2.5%",
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   transactionsView: {
     marginTop: 20,
     borderWidth: 1,
-    height: "35%",
+    height: 300,
     borderRadius: "15%",
     width: "95%",
     marginLeft: "2.5%",

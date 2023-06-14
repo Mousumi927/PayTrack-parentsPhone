@@ -10,10 +10,9 @@ export default{
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./images/circle-scatter-haikei.png",
-      "resizeMode": "contain",
+      "resizeMode": "cover",
       "backgroundColor": "#ffffff",
-      "marginTop": "0"
-    },
+      },
     "assetBundlePatterns": [
       "**/*"
     ],

@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { doc, setDoc, addDoc } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, db, getFirestore } from "firebase/firestore";
 import {
   getDownloadURL,
   listAll,
@@ -38,6 +38,7 @@ const auth = getAuth(app);
 const auth1 = getAuth(app1);
 const storage = getStorage(app);
 const storage1 = getStorage(app1);
+const db1 = getFirestore(app1);
 
 export const addChild = async (
   name,
@@ -56,16 +57,17 @@ export const addChild = async (
   await updateProfile(user, { displayName: name });
 
   //!!   Adding data to fireStore
-  // await addDoc(collection(db, "users"), {
-  //     uid: user.uid,
-  //     authProvider: "local",
-  //     name: name,
-  //     address: address,
-  //     gender: gender,
-  //     date: date,
-  //     email: email,
-  //     pwd: pwd,
-  //   });
+  const docRef = doc(db1, `parents/${auth.currentUser.uid}/child`,user.uid);
+  await setDoc(docRef, {
+      puid:auth.currentUser.uid ,
+      uid: user.uid,
+      authProvider: "local",
+      name: name,
+      address: address,
+      gender: gender,
+      date: date,
+      email: email,
+    });
 
   //!!! Image upload
 
