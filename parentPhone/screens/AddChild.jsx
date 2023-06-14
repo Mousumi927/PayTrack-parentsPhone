@@ -1,23 +1,30 @@
 import {
   StyleSheet,
   Text,
-  SafeAreaView,
+  SafeAreaView, ScrollView,
   Image,
   View,
   TextInput,
   Button,
-  TouchableOpacity, ImageBackground
+  TouchableOpacity, ImageBackground, Alert
 } from "react-native";
 import React, { useEffect, useRef, useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import * as ImagePicker from "expo-image-picker";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import moment from 'moment';
+import { addChild } from "../config/firebase";
 
-const AddChild = () => {
+const AddChild = ({navigation}) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [image, setImage] = useState(null);
+  const [name, setName] = useState("");
+  const [address, setAddress] = useState("");
+  const [gender, setGender] = useState("");
   const [date, setDate] = useState("");
+  const [email, setEmail] = useState("");
+  const [pwd, setPwd] = useState("");
+
   const pickImage = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -47,12 +54,21 @@ const AddChild = () => {
     hideDatePicker();
   };
 
-  useEffect(()=>{
-    console.log(date);
+  const handleSubmit = async () => {
 
-  },[date]);
+    await addChild(name, address, gender, date, email, pwd, image)
+    .then((res)=>{
+      console.log("This is "+res);
+      // Alert.alert("Successful!!!")
+     }).then(()=>{
+      navigation.navigate("Child")
+     })
+
+  }
+ 
   return (
-    <SafeAreaView style={styles.root}><ImageBackground style={styles.root} source={require("../images/blob-scene-haikei.png")}>
+    <ScrollView style={styles.root} automaticallyAdjustKeyboardInsets={true}><ImageBackground style={styles.imgBackground} source={require("../images/blob-scene-haikei.png")}>
+      <Icon name="chevron-left" size={30} color="#fff" style={{marginLeft:20, marginTop:40}} onPress={()=>navigation.navigate('Tabs')} />
       <View style={styles.container}>
         <TouchableOpacity style={{width:"100%", alignItems:"center"}} onPress={pickImage}>
           <Icon name="camera" size={45} color="#0066FF" style={styles.Icon} />
@@ -63,9 +79,9 @@ const AddChild = () => {
           />
         </TouchableOpacity>
 
-        <TextInput style={styles.input} placeholder="Name?" />
-        <TextInput style={styles.input} placeholder="Address?" />
-        <TextInput style={styles.input} placeholder="School?" />
+        <TextInput style={styles.input} placeholder="Name?" onChangeText={setName} />
+        <TextInput style={styles.input} placeholder="Address?" onChangeText={setAddress} />
+        <TextInput style={styles.input} placeholder="Gender?" onChangeText={setGender} />
         <TouchableOpacity style={{flexDirection:"row", width:"100%"}} onPress={showDatePicker}><TextInput
           style={styles.inputDob}
           placeholder="Date of birth?" showSoftInputOnFocus={false} onPressIn={showDatePicker} id="DOB" value={date} />
@@ -77,9 +93,9 @@ const AddChild = () => {
           onCancel={hideDatePicker}
           display="inline" 
         /></TouchableOpacity>
-        <TextInput style={styles.input} placeholder="Email?" />
-        <TextInput style={styles.input} placeholder="Password?" secureTextEntry={true} />
-        <TouchableOpacity style={styles.btn}>
+        <TextInput style={styles.input} placeholder="Email?" onChangeText={setEmail} />
+        <TextInput style={styles.input} placeholder="Password?" secureTextEntry={true} onChangeText={setPwd} />
+        <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
           <Text
             style={{
               textAlign: "center",
@@ -93,7 +109,7 @@ const AddChild = () => {
           </Text>
         </TouchableOpacity>
       </View></ImageBackground>
-    </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -101,9 +117,13 @@ export default AddChild;
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: "white",
-    width: "100%",
-    height: "103%",
+    backgroundColor: "black",
+     width: "100%",
+     height: "100%",
+  },
+  imgBackground:{
+    height:"120%"
+
   },
   container: {
     marginTop: "6%",
@@ -146,7 +166,7 @@ const styles = StyleSheet.create({
   btn: {
     backgroundColor: "#0066FF",
     borderRadius: 30,
-    width: "70%",
+    width: "60%",
     marginTop: 20,
     height: 55,
   },

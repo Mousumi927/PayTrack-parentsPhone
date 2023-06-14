@@ -1,7 +1,7 @@
 import {
   StyleSheet,
   Text,
-  View,
+  View, ScrollView,
   Image,
   TextInput,
   Alert,
@@ -35,7 +35,7 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <View style={styles.root}><ImageBackground source={require("../images/wave-haikei.png")}>
+    <ScrollView style={styles.root} automaticallyAdjustKeyboardInsets={true}><ImageBackground source={require("../images/wave-haikei.png")}>
       <Image source={require("../images/logo.png")} style={styles.img} />
       <Text style={styles.text}>EMAIL</Text>
       <TextInput style={styles.input} onChangeText={setEmail} />
@@ -59,7 +59,7 @@ const Login = ({navigation}) => {
           Log In
         </Text>
       </TouchableOpacity></ImageBackground>
-    </View>
+    </ScrollView>
   );
 };
 
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   img: {
-    marginTop: 100,
+    marginTop: 120,
     marginLeft: "25%",
     width: "50%",
     marginBottom: 20,
