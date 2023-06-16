@@ -20,36 +20,25 @@ import { getDocs, collection, query, where } from "firebase/firestore";
 
 const Child = ({ navigation }) => {
   // const image = require("../images/istockphoto-1367828137-612x612.jpg");
-  const image = ["hello"];
-  const [imageList, setImageList] = useState("");
+
+  const [data, setData] = useState("");
 
   useEffect(() => {
-    setImageList("");
-    const imageListRef = ref(storage, `images/${auth.currentUser.uid}`);
-    listAll(imageListRef).then((res) => {
-      res.items.forEach((item) => {
-        getDownloadURL(item).then((url) => {
-          setImageList((oldList) => [...oldList, url]);
-          console.log(imageList)
-        });
-      });
-    });
-
     const getData = async () => {
       const querySnapshot = await getDocs(
         collection(db, "parents", `${auth.currentUser.uid}`, "child")
       );
       querySnapshot.forEach(async (doc) => {
         console.log(doc.id);
-         const querySnapshot1 = await getDocs(query(collection(db, "children"), where("__name__", "==", doc.id)));
-      // const q = query(collection(db, "cities"), where("Document ID", "==", doc.id));
-        querySnapshot1.forEach((doc)=>{
-          
-          
+        const querySnapshot1 = await getDocs(
+          query(collection(db, "children"), where("__name__", "==", doc.id))
+        );
+        // const q = query(collection(db, "cities"), where("Document ID", "==", doc.id));
+        querySnapshot1.forEach((doc) => {
+          setData((oldData)=>[...oldData, doc.data()]);
 
-        })
-
-      
+          console.log(doc.data())
+        });
       });
     };
 
@@ -79,11 +68,12 @@ const Child = ({ navigation }) => {
       <View style={styles.childView}>
         <FlatList
           horizontal={false}
-          data={imageList}
+          data={data}
           renderItem={({ item, index }) => (
+            
             <View style={styles.list}>
-              <Image source={{ uri: item }} style={styles.listImg} />
-              {/* <Text>{item}</Text> */}
+              <Image source={{ uri: item.profile }} style={styles.listImg} />
+              <Text style={styles.listText}>{item.name}</Text>
             </View>
           )}
           keyExtractor={(item) => item.item}
@@ -133,9 +123,9 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   listImg: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: 75,
+    height: 75,
+    borderRadius: 37.5,
     margin: 5,
   },
   icon: {
@@ -151,5 +141,15 @@ const styles = StyleSheet.create({
   list: {
     borderBottomWidth: 0.3,
     borderColor: "#0066FF",
+    display:"flex",
+    flexDirection:"row",
+    gap:10,
+    alignItems:"center"
   },
+  listText:{
+
+    fontSize:35,
+    fontWeight:"bold",
+    fontFamily:"Calibri"
+  }
 });

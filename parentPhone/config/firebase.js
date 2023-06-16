@@ -7,7 +7,13 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { doc, setDoc, addDoc, collection, getFirestore } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  addDoc,
+  collection,
+  getFirestore,
+} from "firebase/firestore";
 import {
   getDownloadURL,
   listAll,
@@ -33,7 +39,7 @@ const firebaseConfig = {
 
 // Initialize Firebase  //! app = Parent,  app1 = Child
 const app = initializeApp(firebaseConfig);
-const app1 = initializeApp(firebaseConfig, 'Secondary' );
+const app1 = initializeApp(firebaseConfig, "Secondary");
 const auth = getAuth(app);
 const auth1 = getAuth(app1);
 const storage = getStorage(app);
@@ -48,31 +54,14 @@ export const addChild = async (
   date,
   email,
   pwd,
-  image, uid
+  image,
+  uid
 ) => {
-
   //!!! Adding a Child
 
   const response = await createUserWithEmailAndPassword(auth1, email, pwd);
   const user = response.user;
   await updateProfile(user, { displayName: name });
-
-  //!!   Adding data to fireStore
-  const docRef = doc(db1, `parents/${auth.currentUser.uid}/child`,user.uid);
-  await setDoc(docRef, {
-  });
-
-  const docRef1 = doc(db1, `children`,user.uid);
-  await setDoc(docRef1, {
-      puid:auth.currentUser.uid ,
-      uid: user.uid,
-      authProvider: "local",
-      name: name,
-      address: address,
-      gender: gender,
-      date: date,
-      email: email,
-    });
 
   //!!! Image upload
 
@@ -131,13 +120,35 @@ export const addChild = async (
     },
     async () => {
       // Upload completed successfully, now we can get the download URL
-      await getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-        console.log("File available at", downloadURL);
-      });
+      await getDownloadURL(uploadTask.snapshot.ref).then(
+        async (downloadURL) => {
+          console.log("File available at", downloadURL);
+
+          
+          //!!   Adding data to fireStore
+          const docRef = doc(
+            db1,
+            `parents/${auth.currentUser.uid}/child`,
+            user.uid
+          );
+          await setDoc(docRef, {});
+
+          const docRef1 = doc(db1, `children`, user.uid);
+          await setDoc(docRef1, {
+            puid: auth.currentUser.uid,
+            uid: user.uid,
+            authProvider: "local",
+            name: name,
+            address: address,
+            gender: gender,
+            date: date,
+            email: email,
+            profile: downloadURL,
+          });
+        }
+      );
     }
   );
-
- return "Success!";
 };
 
 export { signInWithEmailAndPassword, auth, storage, db };
