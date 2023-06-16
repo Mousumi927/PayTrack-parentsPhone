@@ -7,7 +7,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from "firebase/auth";
-import { doc, setDoc, addDoc, collection, db, getFirestore } from "firebase/firestore";
+import { doc, setDoc, addDoc, collection, getFirestore } from "firebase/firestore";
 import {
   getDownloadURL,
   listAll,
@@ -38,6 +38,7 @@ const auth = getAuth(app);
 const auth1 = getAuth(app1);
 const storage = getStorage(app);
 const storage1 = getStorage(app1);
+const db = getFirestore(app);
 const db1 = getFirestore(app1);
 
 export const addChild = async (
@@ -59,6 +60,10 @@ export const addChild = async (
   //!!   Adding data to fireStore
   const docRef = doc(db1, `parents/${auth.currentUser.uid}/child`,user.uid);
   await setDoc(docRef, {
+  });
+
+  const docRef1 = doc(db1, `children`,user.uid);
+  await setDoc(docRef1, {
       puid:auth.currentUser.uid ,
       uid: user.uid,
       authProvider: "local",
@@ -135,6 +140,6 @@ export const addChild = async (
  return "Success!";
 };
 
-export { signInWithEmailAndPassword, auth, storage };
+export { signInWithEmailAndPassword, auth, storage, db };
 
 // console.log(Constants.manifest.extra.apiKey);

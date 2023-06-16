@@ -6,7 +6,7 @@ export default{
     "slug": "parentPhone",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./images/logo.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./images/circle-scatter-haikei.png",
