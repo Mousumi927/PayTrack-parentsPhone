@@ -13,6 +13,7 @@ import ContextProvider from "./context/ContextProvider";
 import { useContext } from "react";
 import { appContext } from "./context/ContextProvider";
 import Notifications from "./screens/Notifications";
+import ChildProfile from "./screens/ChildProfile";
 
 const { Navigator, Screen } = createNativeStackNavigator();
 
@@ -29,6 +30,7 @@ export default function App() {
           <Screen name="Tabs" component={Tabs} />
           <Screen name="AddChild" component={AddChild} />
           <Screen name="Notifications" component={Notifications} />
+          <Screen name="ChildProfile" component={ChildProfile} />
 
           {/* {user ? <Tabs/>: <Login/>} */}
         </Navigator>

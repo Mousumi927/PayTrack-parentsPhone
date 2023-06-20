@@ -124,7 +124,7 @@ export const addChild = async (
         async (downloadURL) => {
           console.log("File available at", downloadURL);
 
-          
+
           //!!   Adding data to fireStore
           const docRef = doc(
             db1,
@@ -144,6 +144,9 @@ export const addChild = async (
             date: date,
             email: email,
             profile: downloadURL,
+            chq: 0,
+            sav: 0
+
           });
         }
       );
