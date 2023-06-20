@@ -6,21 +6,28 @@ import Accounts from '../screens/Accounts';
 import Child from '../screens/Child';
 import More from '../screens/More';
 import { auth } from "../config/firebase.js";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 
 const Tab = createBottomTabNavigator();
 
 const Tabs = () => {
+
+
   return (
-    <Tab.Navigator screenOptions={{headerShown:false}}>
-    <Tab.Screen name="Home" component={Home} />
-    <Tab.Screen name="Settings" component={Accounts} />
-    <Tab.Screen name="Child" component={Child} />
-    <Tab.Screen name="More" component={More} />
+
+    <Tab.Navigator screenOptions={{headerShown:false, tabBarActiveTintColor:"#0066FF"}}  >
+    <Tab.Screen name="Home" component={Home} options={{tabBarIcon: ({color})=> (<Icon name="home" size={25} color={color} />)}} />
+
+    <Tab.Screen name="Accounts" component={Accounts} options={{tabBarIcon: ({color})=> (<Icon name="credit-card" size={25} color={color} />)}} />
+    <Tab.Screen name="Child" component={Child} options={{tabBarIcon: ({color})=> (<Icon name="child" size={25} color={color} />)}} />
+    <Tab.Screen name="More" component={More} options={{tabBarIcon: ({color})=> (<Icon name="bars" size={25} color={color} />), tabBarBadge:3}} />
   </Tab.Navigator>
   )
 }
 
 export default Tabs
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+
+})

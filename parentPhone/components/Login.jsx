@@ -1,11 +1,11 @@
 import {
   StyleSheet,
   Text,
-  View,
+  View, ScrollView,
   Image,
   TextInput,
   Alert,
-  TouchableOpacity,
+  TouchableOpacity, ImageBackground
 } from "react-native";
 import React, { useState } from "react";
 import { auth } from "../config/firebase.js";
@@ -35,7 +35,7 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <View style={styles.root}>
+    <ScrollView style={styles.root} automaticallyAdjustKeyboardInsets={true}><ImageBackground source={require("../images/wave-haikei.png")}>
       <Image source={require("../images/logo.png")} style={styles.img} />
       <Text style={styles.text}>EMAIL</Text>
       <TextInput style={styles.input} onChangeText={setEmail} />
@@ -58,8 +58,8 @@ const Login = ({navigation}) => {
         >
           Log In
         </Text>
-      </TouchableOpacity>
-    </View>
+      </TouchableOpacity></ImageBackground>
+    </ScrollView>
   );
 };
 
@@ -88,18 +88,22 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   img: {
-    marginTop: 20,
+    marginTop: 120,
     marginLeft: "25%",
     width: "50%",
-    marginBottom: 20
+    marginBottom: 20,
+    borderRadius: 50,
+    resizeMode:"contain"
   },
   btn: {
     // borderWidth: .5,
     borderRadius: 30,
-    width: "70%",
-    marginLeft: "15%",
+    width: "60%",
+    marginLeft: "20%",
     marginTop: 20,
     height: 55,
-    backgroundColor: "#d1d1d1",
+    backgroundColor: "#0066FF",
   },
 });
+
+
