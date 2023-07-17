@@ -64,13 +64,7 @@ const Child = ({ navigation }) => {
         source={require("../images/istockphoto-1367828137-612x612.jpg")}
         style={styles.img}
       />
-      <Icon
-        name="bell"
-        size={30}
-        color="#0066FF"
-        style={styles.icon}
-        onPress={() => navigation.navigate("Notifications")}
-      />
+
 
       <View style={styles.childView}>
         <FlatList
