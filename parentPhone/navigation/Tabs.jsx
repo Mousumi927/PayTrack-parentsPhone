@@ -1,15 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React,{useEffect,useState} from 'react'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../screens/Home';
 import Accounts from '../screens/Accounts';
 import Child from '../screens/Child';
 import More from '../screens/More';
+import Notifications from '../screens/Notifications';
 import { auth,db } from "../config/firebase.js";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 
 const Tab = createBottomTabNavigator();
+// const Stack = createStackNavigator();
 
 const Tabs = () => {
   const [data, setData] = useState([])
@@ -51,7 +54,7 @@ console.log('data.count', data.length)
     <Tab.Screen name="Home" component={Home} options={{tabBarIcon: ({color})=> (<Icon name="home" size={25} color={color} />)}} />
     <Tab.Screen name="Accounts" component={Accounts} options={{tabBarIcon: ({color})=> (<Icon name="credit-card" size={25} color={color} />)}} />
     <Tab.Screen name="Child" component={Child} options={{tabBarIcon: ({color})=> (<Icon name="child" size={25} color={color} />)}} />
-    <Tab.Screen name="Notifications" component={More} options={{tabBarIcon: ({color})=> (<Icon name="bell" size={25} color={color} />),  tabBarBadge:data.length}} />
+    <Tab.Screen name="Notifications" component={Notifications} options={{tabBarIcon: ({color})=> (<Icon name="bell" size={25} color={color} />),  tabBarBadge:data.length}} />
   </Tab.Navigator>
   )
 }
