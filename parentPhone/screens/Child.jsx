@@ -6,6 +6,7 @@ import {
   FlatList,
   View,
   TouchableOpacity,
+  Button,
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome5";
@@ -20,41 +21,47 @@ import { db } from "../config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
 
 const Child = ({ navigation }) => {
-  let obj = {}
+  let obj = {};
   const [data, setData] = useState("");
   const [transaction, setTransaction] = useState("");
   const [images, setImages] = useState("");
-
-  useEffect(() => {
-    const getData = async () => {
-      const querySnapshot = await getDocs(
-        collection(db, "parents", `${auth.currentUser.uid}`, "child")
+  const getData = async () => {
+    const querySnapshot = await getDocs(
+      collection(db, "parents", `${auth.currentUser.uid}`, "child")
+    );
+    querySnapshot.forEach(async (doc) => {
+      const querySnapshot1 = await getDocs(
+        query(collection(db, "children"), where("__name__", "==", doc.id))
       );
-      querySnapshot.forEach(async (doc) => {
-        const querySnapshot1 = await getDocs(
-          query(collection(db, "children"), where("__name__", "==", doc.id))
-        );
-        // const q = query(collection(db, "cities"), where("Document ID", "==", doc.id));
-        querySnapshot1.forEach((doc) => {
-          setData((oldData) => [...oldData, doc.data()]);
-          console.log(doc.data())
-          obj[doc.data().uid] = doc.data().profile;
-
-           setImages(oldData=>[...oldData, obj])
-        });
+      const allChildren = [];
+      const allImages = [];
+      // const q = query(collection(db, "cities"), where("Document ID", "==", doc.id));
+      querySnapshot1.forEach((doc) => {
+        allChildren.push(doc.data());
+        console.log(doc.data());
+        obj[doc.data().uid] = doc.data().profile;
+        allImages.push(obj);
       });
-
-      querySnapshot.forEach(async (doc) => {
-        const qTransactions = await getDocs(
-          collection(db, "transactions", `${doc.id}`, "transaction")
+      setImages(allImages);
+      setData(allChildren);
+      allChildren.forEach(async (doc) => {
+        console.log("doc is", doc);
+        // console.log("child is", doc.data());
+        const transQuery = query(
+          collection(db, "transactions"),
+          where("userId", "==", doc.uid)
         );
-
+        const qTransactions = await getDocs(transQuery);
+        const allData = [];
         qTransactions.forEach((doc) => {
-          setTransaction((data) => [...data, doc.data()]);
+          allData.push(doc.data());
           console.log(doc.data());
         });
+        setTransaction(allData);
       });
-    };
+    });
+  };
+  useEffect(() => {
     getData();
   }, []);
 
@@ -64,7 +71,6 @@ const Child = ({ navigation }) => {
         source={require("../images/istockphoto-1367828137-612x612.jpg")}
         style={styles.img}
       />
-
 
       <View style={styles.childView}>
         <FlatList
@@ -88,7 +94,6 @@ const Child = ({ navigation }) => {
                 />
               </View>
             </TouchableOpacity>
-          
           )}
           keyExtractor={this.index}
         />
@@ -103,6 +108,7 @@ const Child = ({ navigation }) => {
       <View style={styles.transactionsView}>
         <View style={styles.textTranHeading}>
           <Text style={styles.listText}>Transactions</Text>
+          <Button onPress={getData} title="Refresh" />
         </View>
         <FlatList
           horizontal={false}
@@ -114,8 +120,10 @@ const Child = ({ navigation }) => {
                 <Text style={styles.listTextT}>{item.date}</Text>
                 <Image source={{ uri: item.profile }} style={styles.listImgT} />
                 <Text style={styles.listTextT}>${item.amount}</Text>
-                <Text style={styles.listTextT}>{item.store}{data.name}</Text>
-               
+                <Text style={styles.listTextT}>
+                  {item.store}
+                  {data.name}
+                </Text>
               </View>
             </TouchableOpacity>
           )}
@@ -186,12 +194,12 @@ const styles = StyleSheet.create({
     borderRadius: 37.5,
     margin: 5,
   },
-  listImgT:{
+  listImgT: {
     width: 75,
     height: 75,
     borderRadius: 37.5,
     margin: 5,
-    borderWidth:.3
+    borderWidth: 0.3,
   },
   icon: {
     marginLeft: "89%",
@@ -221,7 +229,7 @@ const styles = StyleSheet.create({
   listTextT: {
     color: "#3b3c3d",
     fontSize: 20,
-    margin:10
+    margin: 10,
   },
   textTranHeading: {
     backgroundColor: "#e1e3e6",

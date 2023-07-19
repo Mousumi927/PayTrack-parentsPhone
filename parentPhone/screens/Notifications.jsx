@@ -1,14 +1,13 @@
-import React from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
-
+import React, { useState } from "react";
+import { FlatList, StyleSheet, Text, View } from "react-native";
 
 const MyComponent = () => {
   const [tableData, setTableData] = useState([]);
 
   const handleAddItem = () => {
     const newItem = {
-      name: '',
-      requestAmount: '',
+      name: "",
+      requestAmount: "",
     };
     setTableData((prevData) => [...prevData, newItem]);
   };
@@ -25,11 +24,13 @@ const MyComponent = () => {
     setTableData(newData);
   };
 
- return (
+  return (
     <View style={styles.container}>
       <View style={styles.tableHeader}>
         <Text style={[styles.columnHeader, styles.columnCenter]}>Name</Text>
-        <Text style={[styles.columnHeader, styles.columnCenter]}>Request Amount</Text>
+        <Text style={[styles.columnHeader, styles.columnCenter]}>
+          Request Amount
+        </Text>
       </View>
       <FlatList
         data={tableData}
@@ -61,38 +62,38 @@ export default MyComponent;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     padding: 16,
   },
   tableHeader: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginBottom: 8,
   },
   columnHeader: {
     flex: 1,
     fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 150
+    fontWeight: "bold",
+    marginTop: 150,
   },
   columnCenter: {
-    textAlign: 'center', // Align column names in the center
+    textAlign: "center", // Align column names in the center
   },
- 
+
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 4,
     padding: 8,
     marginRight: 8,
   },
   buttonContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     marginTop: 16,
   },
   addButton: {
-    color: '#0066FF',
+    color: "#0066FF",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
