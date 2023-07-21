@@ -19,6 +19,7 @@ import {
 } from "firebase/storage";
 import { db } from "../config/firebase";
 import { getDocs, collection, query, where } from "firebase/firestore";
+import BenImage from "../images/ben.jpg";
 
 const Child = ({ navigation }) => {
   let obj = {};
@@ -29,12 +30,13 @@ const Child = ({ navigation }) => {
     const querySnapshot = await getDocs(
       collection(db, "parents", `${auth.currentUser.uid}`, "child")
     );
+
     querySnapshot.forEach(async (doc) => {
-      const querySnapshot1 = await getDocs(
-        query(collection(db, "children"), where("__name__", "==", doc.id))
-      );
       const allChildren = [];
       const allImages = [];
+      console.log(" this is doc ", doc);
+      const querySnapshot1 = await getDocs(collection(db, "children"), doc.id);
+
       // const q = query(collection(db, "cities"), where("Document ID", "==", doc.id));
       querySnapshot1.forEach((doc) => {
         allChildren.push(doc.data());
