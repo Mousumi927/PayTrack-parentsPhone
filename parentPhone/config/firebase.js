@@ -61,7 +61,7 @@ export const addChild = async (
 
   const response = await createUserWithEmailAndPassword(auth1, email, pwd);
   const user = response.user;
-  await updateProfile(user, { displayName: name });
+  
 
   //!!! Image upload
 
@@ -123,7 +123,7 @@ export const addChild = async (
       await getDownloadURL(uploadTask.snapshot.ref).then(
         async (downloadURL) => {
           console.log("File available at", downloadURL);
-
+          url = downloadURL
 
           //!!   Adding data to fireStore
           const docRef = doc(
@@ -148,10 +148,16 @@ export const addChild = async (
             sav: 0
 
           });
+          await updateProfile(user, { 
+            displayName: name,
+            photoURL: downloadURL
+          });
         }
       );
     }
   );
+
+  
 };
 
 export { signInWithEmailAndPassword, auth, storage, db };
