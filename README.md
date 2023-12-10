@@ -1,13 +1,30 @@
-Project Name: PayTrack
+PayTrack is an innovative mobile application designed to address the challenges faced by families in imparting financial literacy to children. The app focuses on digitizing pocket money and gifts while incorporating parental controls and gamified features to instill healthy saving habits in children.
 
-Problem:
-Most banking apps lack features focused on children, such as parental control. Children often receive pocket money in cash or as gifts, leading to a lack of awareness about saving habits. Parents find it challenging to explain the importance of saving without proper tools. 
+Features:
+Parent Phone Side
+Child Transactions: A dedicated "Child" button allows parents to send money directly to their child's bank account, replacing the need for cash transactions.
+Visibility and Control: Parents gain real-time visibility into their child's transactions, fostering better financial control and awareness.
+Traditional Banking Features: In addition to child-focused features, PayTrack includes standard banking functionalities for a comprehensive financial experience.
 
-Solution: 
-PayTrack is an innovative app that addresses these challenges. It consists of two essential components: the Child Phone side and the Parent Phone side.
+Child Phone Side
+Gamified Experience: The child side of the app utilizes gamification to make financial education enjoyable and engaging for children.
+Transaction Tracking: Kids can easily track their transactions, providing a visual representation of their spending and saving habits.
+Savings Goals: Children can set savings goals within the app, creating a sense of purpose and achievement as they work towards financial milestones.
+Rewards System: PayTrack incorporates a rewards system, encouraging children to save by earning incentives for reaching their savings goals.
 
-On the Parent Phone side, alongside traditional banking features, there is a dedicated "Child" button. This feature empowers parents and relatives to send money directly to their child's bank account instead of giving cash. By digitizing pocket money and gifts, parents gain visibility into their child's transactions.
+Technologies Used
+Firebase: Utilized for real-time data synchronization and storage.
+Node.js: Employed for server-side scripting and handling backend functionalities.
+React Native: The framework used for building the cross-platform mobile application.
+Miro: Integrated for collaborative design and planning.
 
-The Child Phone side of the app utilizes a gamified and rewarding approach to engage children and foster healthy saving habits. Kids can track their transactions, set savings goals, and earn rewards for reaching milestones. By visualizing the bigger picture of their savings, children learn financial responsibility and develop a habit of saving.
+Getting Started
+To run PayTrack locally, follow these steps:
+Clone the Repository: git clone https://github.com/your-username/paytrack.git
+cd parentPhone
 
-PayTrack redefines the way parents and children interact with money, bridging the gap between traditional banking and the financial needs of families. Our user-friendly interface and engaging features make financial education enjoyable for children and provide peace of mind for parents. Join PayTrack today and embark on a journey towards financial literacy and smart money management.
+Install Dependencies:
+npm install
+
+Run the Application:
+npm start
